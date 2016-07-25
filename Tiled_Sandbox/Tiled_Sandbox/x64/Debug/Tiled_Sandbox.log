@@ -1,0 +1,6 @@
+﻿  main.cpp
+  World.cpp
+c:\users\just_zack\desktop\c++\tiled_sandbox\tiled_sandbox\world.cpp(24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  Tiled_Sandbox.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Tiled_Sandbox\x64\Debug\Tiled_Sandbox.exe
+  Tiled_Sandbox.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Tiled_Sandbox\x64\Debug\Tiled_Sandbox.pdb (Partial PDB)

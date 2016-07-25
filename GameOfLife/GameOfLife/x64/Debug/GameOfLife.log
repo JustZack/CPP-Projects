@@ -1,0 +1,5 @@
+﻿  GameOfLife.cpp
+c:\users\just_zack\desktop\c++\gameoflife\gameoflife\gameoflife.cpp(83): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\just_zack\desktop\c++\gameoflife\gameoflife\gameoflife.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\C++\GameOfLife\x64\Debug\GameOfLife.exe
+  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\C++\GameOfLife\x64\Debug\GameOfLife.pdb (Partial PDB)
