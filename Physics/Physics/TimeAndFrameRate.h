@@ -35,4 +35,6 @@ public:
 	float getCurrentFrameRate();
 	//Return the time that the current frame took
 	float getCurrentFrameTime();
+	//Return how long the app has been runing
+	float getRunningtime();
 };

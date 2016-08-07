@@ -19,7 +19,7 @@ PhysicsObject::PhysicsObject(float Width, float Height, float X, float Y, float 
 void PhysicsObject::Update(float &frameTime)
 {
 	//Check if the physics object collided with the edges of the world(A.K.A the bounds of the window) 
-	EdgeCollisionCheck();
+	EdgeCollisionCheck(frameTime);
 	//Check if the objects x velocity is so small that it should just become zero.
 	//This keep the objects from having a velocity that is something to the tune of 1px/year. that is a waste of proccessing power.
 	if (xSpeed < xSpeed / 1000 && xSpeed > -(xSpeed / 1000))
@@ -32,7 +32,7 @@ void PhysicsObject::Update(float &frameTime)
 	
 	PopulateTrails();
 }
-void PhysicsObject::EdgeCollisionCheck()
+void PhysicsObject::EdgeCollisionCheck(float &frameTime)
 {
 	if (x + width >= windowWidth || x <= 0)
 	{
@@ -76,7 +76,7 @@ void PhysicsObject::EdgeCollisionCheck()
 	}
 	else
 	{
-		ySpeed += (g * scale);
+		ySpeed += g * frameTime * scale;
 	}
 }
 void PhysicsObject::MathCalculations(float &frameTime)
@@ -136,12 +136,13 @@ sf::Color PhysicsObject::getColor()
 	return color;
 }
 
-void PhysicsObject::setWorldConstants(float Scale, int WindowWidth, int WindowHeight, float Gravity)
+void PhysicsObject::setWorldConstants(float Scale, int WindowWidth, int WindowHeight, float Gravity, int TrailLength)
 {
 	scale = Scale;
 	windowWidth = WindowWidth;
 	windowHeight = WindowHeight;
-	g = Gravity;
+	g = Gravity * scale;
+	trailLength = TrailLength;
 
 	width *= scale;
 	height *= scale;

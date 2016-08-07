@@ -20,16 +20,18 @@ private:
 	int windowWidth, windowHeight;
 
 	bool drawTrails;
-	int trailLength = 25;
+	int trailLength = 100;
 
 	int collisionLayer;
 	bool collision;
 
-	void EdgeCollisionCheck();
+	void EdgeCollisionCheck(float &frameTime);
 	void MathCalculations(float &frameTime);
 	void PopulateTrails();
 
 public:
+	//TODO: make this based on time instead of how many frames have gone by.
+	//Stores the previous trailLength number of points
 	std::vector <sf::Vector2f> prevPoints;
 
 	PhysicsObject(float Width, float Height, float X, float Y, float Mass, float Bounciness, float CoefficientOfFriction, sf::Color Color = sf::Color::White);
@@ -49,7 +51,7 @@ public:
 
 	std::vector<sf::Vector2f> getPreviousPoints();
 
-	void setWorldConstants(float Scale, int WindowWidth, int WindowHeight, float Gravity);
+	void setWorldConstants(float Scale, int WindowWidth, int WindowHeight, float Gravity, int TrailLength);
 
 	void setDrawTrails(bool &drawTrails);
 	bool getDrawTrails();

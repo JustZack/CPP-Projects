@@ -42,3 +42,8 @@ float TimeAndFrameRate::getCurrentFrameTime()
 {
 	return currentFrameTime;
 }
+
+float TimeAndFrameRate::getRunningtime()
+{
+	return totalTime;
+}
