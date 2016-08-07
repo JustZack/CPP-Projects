@@ -76,7 +76,7 @@ void PhysicsObject::EdgeCollisionCheck(float &frameTime)
 	}
 	else
 	{
-		ySpeed += g * frameTime * scale;
+		ySpeed += g * frameTime;
 	}
 }
 void PhysicsObject::MathCalculations(float &frameTime)

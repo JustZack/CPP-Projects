@@ -1,4 +1,4 @@
 ﻿  main.cpp
-c:\users\just_zack\desktop\c++\physics\physics\main.cpp(13): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\just_zack\desktop\c++\physics\physics\main.cpp(12): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.exe
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.pdb (Partial PDB)

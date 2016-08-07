@@ -4,16 +4,15 @@
 int main()
 {
 	//Create the window, event handler, and limit its framerate
-	sf::RenderWindow window(sf::VideoMode(3286, 1080), "Window");
-	window.setPosition(sf::Vector2i(-20, 0));
+	sf::RenderWindow window(sf::VideoMode(1800, 900), "Window");
 	sf::Event event;
 	//window.setFramerateLimit(12);
 
 	//Create a world, and do some optionstuff with it first
-	World PhysicsWorld(window.getSize().x, window.getSize().y, 1.f, 1);
+	World PhysicsWorld(window.getSize().x, window.getSize().y, 5.f, 1);
 	PhysicsWorld.RandReset(60);
 	PhysicsWorld.setDrawTrails(true);
-	PhysicsWorld.setTrailLength(100000);
+	PhysicsWorld.setTrailLength(100);
 	PhysicsWorld.setFrameRateInterval(.5f);
 
 	sf::RectangleShape PhysObjShape(sf::Vector2f(10.f,10.f));
@@ -39,9 +38,8 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 		{
+			//PhysicsWorld.PlaneReset(10.f);
 			PhysicsWorld.RandReset(60);
-
-			PhysicsWorld.PlaneReset(10.f);
 		}
 		if (keyCooldown > .5f && sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 		{

@@ -56,15 +56,15 @@ void World::RandReset(int ObjCount)
 	PhysicsObjects.clear();
 	for (int i = 0; i < ObjCount; i++)
 	{
-		addPhysObject(PhysicsObject(5.f, 5.f, 10.f, 10.f, 500, i / (ObjCount * 1.1f),1,sf::Color::Red), i);
+		addPhysObject(PhysicsObject(1.f, 1.f, 10.f, 10.f, 500, i / (ObjCount * 1.1f),1,sf::Color::Red), i);
 	}
 }
 void World::PlaneReset(float distFromTop)
 {
 	PhysicsObjects.clear();
-	for (int i = 0; i < width; i += 5.f*scale)
+	for (int i = 0; i < width; i += 1.f*scale)
 	{
-		addPhysObject(PhysicsObject(5.f, 5.f, i, distFromTop, 500, .65f, 1, sf::Color::Red), 0.f);
+		addPhysObject(PhysicsObject(1.f, 1.f, i, distFromTop, 500, .65f, 1, sf::Color::Red), 0.f);
 	}
 }
 
