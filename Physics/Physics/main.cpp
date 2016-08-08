@@ -3,23 +3,25 @@
 
 int main()
 {
+	//TODO: put the calculations of position on a seperate thread, and refrence the world as a global variable.
 	//Create the window, event handler, and limit its framerate
 	sf::RenderWindow window(sf::VideoMode(1800, 900), "Window");
+	//window.setPosition(sf::Vector2i(-10,0));
 	sf::Event event;
 	//window.setFramerateLimit(12);
 
 	//Create a world, and do some optionstuff with it first
-	World PhysicsWorld(window.getSize().x, window.getSize().y, 5.f, 1);
+	World PhysicsWorld(window.getSize().x, window.getSize().y, 10.f, 1);
 	PhysicsWorld.RandReset(60);
-	PhysicsWorld.setDrawTrails(true);
-	PhysicsWorld.setTrailLength(100);
-	PhysicsWorld.setFrameRateInterval(.5f);
-
+	//PhysicsWorld.setTrailLength(100000);
 	sf::RectangleShape PhysObjShape(sf::Vector2f(10.f,10.f));
 	PhysObjShape.setFillColor(sf::Color::White);
 
 	sf::RectangleShape trail(sf::Vector2f(1, 1));
 	trail.setFillColor(sf::Color::Blue);
+
+	sf::RectangleShape accelerationShape(sf::Vector2f(1, 1));
+	accelerationShape.setFillColor(sf::Color::Red);
 
 
 	sf::Clock c;
@@ -36,21 +38,44 @@ int main()
 			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		if (window.hasFocus())
 		{
-			//PhysicsWorld.PlaneReset(10.f);
-			PhysicsWorld.RandReset(60);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			{
+				PhysicsWorld.RandReset(60);
+			}
+			if (keyCooldown > .2f && sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+			{
+				keyCooldown = .0f;
+				if (PhysicsWorld.getdrawTrails())
+				{
+					PhysicsWorld.hideTrails();
+				}
+				else if (!PhysicsWorld.getdrawTrails())
+				{
+					PhysicsWorld.showTrails();
+				}
+			}
+			if (keyCooldown > .2f && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				keyCooldown = .0f;
+				if (PhysicsWorld.getdrawAccelerationMagnitude())
+				{
+					PhysicsWorld.hideAccelerationMagnitude();
+				}
+				else if (!PhysicsWorld.getdrawAccelerationMagnitude())
+				{
+					PhysicsWorld.showAccelerationMagnitude();
+				}
+			}
+			if (keyCooldown > .2f && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+			{
+				keyCooldown = .0f;
+				sf::Image screenshot = window.capture();
+				screenshot.saveToFile("C:\\Users\\Just_Zack\\Desktop\\App_ScreenShot.png");
+			}
 		}
-		if (keyCooldown > .5f && sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			keyCooldown = .0f;
-			PhysicsWorld.setDrawTrails(!PhysicsWorld.getDrawTrails());
-		}
-		if (keyCooldown > .5f && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-		{
-			sf::Image screenshot = window.capture();
-			screenshot.saveToFile("C:\\Users\\Just_Zack\\Desktop\\App_ScreenShot.png");
-		}
+
 		keyCooldown += PhysicsWorld.getCurrentFrameTime();
 		window.clear();
 		
@@ -60,18 +85,17 @@ int main()
 		//This updates ALL of the physics involved in the world
 		PhysicsWorld.Update();
 		window.setTitle(PhysicsWorld.getCurrentFrameRate_string() + "   ||   " + std::to_string(PhysicsWorld.getCurrentFrameTime()) + "   ||   " + std::to_string(PhysicsWorld.getRunningtime()));
+		
 		if(PhysicsWorld.PhysicsObjects.size() > 0)
 		{
-			//go through each physics object in the world
-			for (int i = 0; i < PhysicsWorld.PhysicsObjects.size(); i++)
+			//go through each physics object in the world and draw it strail
+			if (PhysicsWorld.getdrawTrails())
 			{
-				//Go through each objects point on their trail, and draw it.
-				//Only works if the drawTrials member is true. Defualts to false;
-				if (PhysicsWorld.getDrawTrails() == true)
+				for (int i = 0; i < PhysicsWorld.PhysicsObjects.size(); i++)
 				{
-					for (int j = 0; j < PhysicsWorld.PhysicsObjects.at(i).prevPoints.size(); j++)
+					for (int j = 0; j < PhysicsWorld.PhysicsObjects.at(i).trail.size(); j++)
 					{
-						trail.setPosition(PhysicsWorld.PhysicsObjects.at(i).prevPoints.at(j));
+						trail.setPosition(PhysicsWorld.PhysicsObjects.at(i).trail.at(j));
 						window.draw(trail);
 					}
 				}				
@@ -84,6 +108,19 @@ int main()
 				PhysObjShape.setSize(sf::Vector2f(PhysicsWorld.PhysicsObjects.at(i).getWidth(), PhysicsWorld.PhysicsObjects.at(i).getHeight()));
 				PhysObjShape.setFillColor(PhysicsWorld.PhysicsObjects.at(i).getColor());
 				window.draw(PhysObjShape);
+			}
+			//go through each physics object ion the world and draw its acceleration magnitude
+			if (PhysicsWorld.getdrawAccelerationMagnitude())
+			{
+				//go through each physics object in the world, and draw their acceleration arrows
+				for (int i = 0; i < PhysicsWorld.PhysicsObjects.size(); i++)
+				{
+					//Draw each physics object to the window
+					accelerationShape.setPosition(sf::Vector2f(PhysicsWorld.PhysicsObjects.at(i).pos().x + PhysicsWorld.PhysicsObjects.at(i).getWidth() / 2, PhysicsWorld.PhysicsObjects.at(i).pos().y + PhysicsWorld.PhysicsObjects.at(i).getHeight() / 2));
+					accelerationShape.setSize(sf::Vector2f(1.f, PhysicsWorld.PhysicsObjects.at(i).getAccelerationMagnitude()));
+					accelerationShape.setRotation(PhysicsWorld.PhysicsObjects.at(i).getAccelerationAngle());
+					window.draw(accelerationShape);
+				}
 			}
 		}
 		#pragma endregion

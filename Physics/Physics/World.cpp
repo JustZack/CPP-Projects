@@ -7,6 +7,9 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 	scale = Scale;
 	gravity = Gravity;
 
+	drawAccelerationMagnitudes = false;
+	drawTrails = false;
+
 	tAndfr.setInterval(frameRateTimeInterval);
 }
 
@@ -24,23 +27,25 @@ void World::addPhysObject(PhysicsObject newObject, float xSpeed)
 {
 	newObject.setWorldConstants(scale, width, height, gravity, trailLength);
 	newObject.setXSpeed(xSpeed);
-	newObject.setDrawTrails(drawTrails);
+	if (drawTrails)
+	{
+		newObject.showTrails();
+	}
+	else
+	{
+		newObject.hideTrails();
+	}
+	if (drawAccelerationMagnitudes)
+	{
+		newObject.showAccelerationMagnitude();
+	}
+	else
+	{
+		newObject.hideAccelerationMagnitude();
+	}
 	PhysicsObjects.push_back(newObject);
 }
 
-void World::setDrawTrails(bool DrawTrails)
-{
-	drawTrails = DrawTrails;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
-	{
-		PhysicsObjects.at(i).setDrawTrails(drawTrails);
-		PhysicsObjects.at(i).prevPoints.clear();
-	}
-}
-bool World::getDrawTrails()
-{
-	return drawTrails;
-}
 void World::setTrailLength(int TrailLength)
 {
 	trailLength = TrailLength;
@@ -49,6 +54,47 @@ void World::setTrailLength(int TrailLength)
 		PhysicsObjects.at(i).setTrailLength(trailLength);
 	}
 }
+void World::showTrails()
+{
+	drawTrails = true;
+	for (int i = 0; i < PhysicsObjects.size(); i++)
+	{
+		PhysicsObjects.at(i).showTrails();
+	}
+}
+void World::hideTrails()
+{
+	drawTrails = false;
+	for (int i = 0; i < PhysicsObjects.size(); i++)
+	{
+		PhysicsObjects.at(i).hideTrails();
+	}
+}
+bool World::getdrawTrails()
+{
+	return drawTrails;
+}
+
+void World::showAccelerationMagnitude()
+{
+	drawAccelerationMagnitudes = true;
+	for (int i = 0; i < PhysicsObjects.size(); i++)
+	{
+		PhysicsObjects.at(i).showAccelerationMagnitude();
+	}
+}
+void World::hideAccelerationMagnitude()
+{
+	drawAccelerationMagnitudes = false;
+	for (int i = 0; i < PhysicsObjects.size(); i++)
+	{
+		PhysicsObjects.at(i).hideAccelerationMagnitude();
+	}
+}
+bool World::getdrawAccelerationMagnitude()
+{
+	return drawAccelerationMagnitudes;
+}
 
 
 void World::RandReset(int ObjCount)
@@ -56,7 +102,7 @@ void World::RandReset(int ObjCount)
 	PhysicsObjects.clear();
 	for (int i = 0; i < ObjCount; i++)
 	{
-		addPhysObject(PhysicsObject(1.f, 1.f, 10.f, 10.f, 500, i / (ObjCount * 1.1f),1,sf::Color::Red), i);
+		addPhysObject(PhysicsObject(1.f, 1.f, 10.f, 10.f, 500, i / (ObjCount * 1.1f), 1, sf::Color::Red), i);
 	}
 }
 void World::PlaneReset(float distFromTop)

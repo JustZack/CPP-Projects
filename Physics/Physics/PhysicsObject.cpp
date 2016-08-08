@@ -1,4 +1,6 @@
 #include "PhysicsObject.h"
+#define _USE_MATH_DEFINES 
+#include <math.h>
 #include <iostream>
 PhysicsObject::PhysicsObject(float Width, float Height, float X, float Y, float Mass, float Bounciness, float CoefficientOfFriction, sf::Color Color)
 {
@@ -14,25 +16,33 @@ PhysicsObject::PhysicsObject(float Width, float Height, float X, float Y, float 
 
 	xSpeed = 0;
 	ySpeed = 0;
+	temptrailInterval = trailInterval;
 }
 
 void PhysicsObject::Update(float &frameTime)
 {
-	//Check if the physics object collided with the edges of the world(A.K.A the bounds of the window) 
-	EdgeCollisionCheck(frameTime);
 	//Check if the objects x velocity is so small that it should just become zero.
 	//This keep the objects from having a velocity that is something to the tune of 1px/year. that is a waste of proccessing power.
-	if (xSpeed < xSpeed / 1000 && xSpeed > -(xSpeed / 1000))
+	/*if (xSpeed < xSpeed / 1000 && xSpeed > -(xSpeed / 1000))
 	{
 		xSpeed = 0;
 	}
+	*/
 
+	//Check if the physics object collided with the edges of the world(A.K.A the bounds of the window) 
+	WindowEdgeCollisionCheck(frameTime);
+
+	//Do some math.
+	//Get new x and y pos
+	//Get acceleration vector
+	//Get acceleration angle
+	//and much more!
 	MathCalculations(frameTime);
 
-	
-	PopulateTrails();
+	//Add previous positions to the trail vector every interval seconds.
+	PopulateTrail(frameTime);
 }
-void PhysicsObject::EdgeCollisionCheck(float &frameTime)
+void PhysicsObject::WindowEdgeCollisionCheck(float &frameTime)
 {
 	if (x + width >= windowWidth || x <= 0)
 	{
@@ -41,6 +51,7 @@ void PhysicsObject::EdgeCollisionCheck(float &frameTime)
 			if (xSpeed > 0)
 			{
 				xSpeed *= -bounciness;
+				ySpeed *= bounciness;
 			}
 		}
 		else if (x <= 0)
@@ -48,17 +59,15 @@ void PhysicsObject::EdgeCollisionCheck(float &frameTime)
 			if (xSpeed < 0)
 			{
 				xSpeed *= -bounciness;
+				ySpeed *= bounciness;
 			}
 		}
-	}
-	else
-	{
-
 	}
 	if (y + height >= windowHeight || y <= 0)
 	{
 		if (y + height >= windowHeight)
 		{
+			y = windowHeight - height;
 			if (ySpeed > 0)
 			{
 				ySpeed *= -bounciness;
@@ -74,29 +83,55 @@ void PhysicsObject::EdgeCollisionCheck(float &frameTime)
 			}
 		}
 	}
-	else
-	{
-		ySpeed += g * frameTime;
-	}
 }
 void PhysicsObject::MathCalculations(float &frameTime)
 {
 	KE = (.5) * mass * ySpeed * ySpeed;
 	PE = mass * g * (windowHeight - (y + height));
-	a = abs(sqrt((xSpeed * xSpeed) + (ySpeed * ySpeed)));
-
-	x += (xSpeed * frameTime);
-	y += (ySpeed * frameTime);
-}
-void PhysicsObject::PopulateTrails()
-{
-	if (drawTrails)
+	if (drawAccelerationMagnitude)
 	{
-		if (prevPoints.size() > trailLength)
+		acceleration = abs(sqrt((xSpeed * xSpeed) + (ySpeed * ySpeed)));
+
+		//TODO make sure that if the object has any zero speed, angle is still calculated
+		//This block is the calculation for the angle of acceleration.
+		//The odd if statment additions to the angle act as corrections
+		//EX: in quadrant one the angle is 90 degrees too high, so take away 90.
+		accelerationAngle = (atan2(ySpeed, xSpeed) * 180 / M_PI);
+		if (xSpeed > 0 && -ySpeed > 0)
 		{
-			prevPoints.erase(prevPoints.begin());
+			//Do nothing, first quadrant
+			accelerationAngle -= 90;
 		}
-		prevPoints.push_back(sf::Vector2f(x + width / 2, y + height / 2));
+		if (xSpeed < 0 && -ySpeed > 0)
+		{
+			//Second Quadrant
+			accelerationAngle += 270;
+		}
+		if (xSpeed < 0 && -ySpeed < 0)
+		{
+			//Third Quadrant
+			accelerationAngle += 270;
+		}
+		if (xSpeed > 0 && -ySpeed < 0)
+		{
+			//Fourth Quadrant
+			accelerationAngle += 270;
+		}
+	}
+	x += (xSpeed * frameTime);
+	y += ((ySpeed += g * frameTime) * frameTime);
+}
+void PhysicsObject::PopulateTrail(float &frameTime)
+{
+	temptrailInterval -= frameTime;
+	if (temptrailInterval <= 0.f)
+	{
+		temptrailInterval = trailInterval;
+		if (trail.size() > trailLength)
+		{
+			trail.erase(trail.begin());
+		}
+		trail.push_back(sf::Vector2f(x + width / 2, y + height / 2));
 	}
 }
 
@@ -106,16 +141,25 @@ sf::Vector2f PhysicsObject::pos()
 }
 std::vector<sf::Vector2f> PhysicsObject::getPreviousPoints()
 {
-	return prevPoints;
+	return trail;
 }
 
 void PhysicsObject::setXSpeed(float &newXSpeed)
 {
 	xSpeed = newXSpeed * scale;
 }
+float PhysicsObject::getXSpeed()
+{
+	return xSpeed;
+}
+
 void PhysicsObject::setYSpeed(float &newYSpeed)
 {
 	ySpeed = newYSpeed * scale;
+}
+float PhysicsObject::getYSpeed()
+{
+	return ySpeed;
 }
 
 float PhysicsObject::getHeight()
@@ -149,11 +193,23 @@ void PhysicsObject::setWorldConstants(float Scale, int WindowWidth, int WindowHe
 
 }
 
-void PhysicsObject::setDrawTrails(bool &DrawTrails)
+void PhysicsObject::setTrailInterval(float &interval)
 {
-	drawTrails = DrawTrails;
+	trailInterval = interval;
 }
-bool PhysicsObject::getDrawTrails()
+void PhysicsObject::clearTrails()
+{
+	trail.clear();
+}
+void PhysicsObject::showTrails()
+{
+	drawTrails = true;
+}
+void PhysicsObject::hideTrails()
+{
+	drawTrails = false;
+}
+bool PhysicsObject::getdrawTrails()
 {
 	return drawTrails;
 }
@@ -176,7 +232,7 @@ bool PhysicsObject::getCollision()
 	return collision;
 }
 
-void PhysicsObject::setCollision(int &CollisionLayer)
+void PhysicsObject::setCollisionLayer(int &CollisionLayer)
 {
 	collisionLayer = CollisionLayer;
 }
@@ -184,3 +240,26 @@ int PhysicsObject::getCollisionLayer()
 {
 	return collisionLayer;
 }
+
+float PhysicsObject::getAccelerationAngle()
+{
+	return accelerationAngle;
+}
+float PhysicsObject::getAccelerationMagnitude()
+{
+	return acceleration;
+}
+
+void PhysicsObject::showAccelerationMagnitude()
+{
+	drawAccelerationMagnitude = true;
+}
+void PhysicsObject::hideAccelerationMagnitude()
+{
+	drawAccelerationMagnitude = false;
+}
+bool PhysicsObject::getdrawAccelerationMagnitude()
+{
+	return drawAccelerationMagnitude;
+}
+

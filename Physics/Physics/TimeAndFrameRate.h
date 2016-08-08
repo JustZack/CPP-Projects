@@ -9,7 +9,7 @@ private:
 	//The totalruntime of the application
 	float totalTime;
 	//The interval at which the framerate is updated/calculated
-	float timeInterval;
+	float timeInterval = .5f;
 	//Temp time used to calculate avg framerate later
 	float tempTime;
 	//The total number of frames that have elapsed in the app

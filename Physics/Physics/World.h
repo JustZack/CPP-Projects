@@ -14,7 +14,9 @@ private:
 	//The global variable for gravity. For and Earth based enviroment it should be 9.81m/s 
 	float gravity;
 	//Boolean determining if trails should be drawn for objects
-	bool drawTrails = false;
+	bool drawTrails;
+	//Boolean determining if any acceleration magnitudes will be draw for objects
+	bool drawAccelerationMagnitudes;
 	//Boolean determining if anything in the world collides with eachother. 
 	//there are seperate collision properties for every physics object the determine if they have collision
 	bool collisions = true;
@@ -35,9 +37,14 @@ public:
 	//std::vector<StaticObject> StaticObjects
 	World(float Width, float Height, float Scale, double frameRateTimeInterval, float Gravity = 9.81f);
 
-	void setDrawTrails(bool drawTrails);
-	bool getDrawTrails();
 	void setTrailLength(int TrailLength);
+	void showTrails();
+	void hideTrails();
+	bool getdrawTrails();
+
+	void showAccelerationMagnitude();
+	void hideAccelerationMagnitude();
+	bool getdrawAccelerationMagnitude();
 
 	void Update();
 
