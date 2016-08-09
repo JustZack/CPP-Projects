@@ -13,7 +13,7 @@ int main()
 	//Create a world, and do some optionstuff with it first
 	World PhysicsWorld(window.getSize().x, window.getSize().y, 10.f, 1);
 	PhysicsWorld.RandReset(60);
-	//PhysicsWorld.setTrailLength(100000);
+
 	sf::RectangleShape PhysObjShape(sf::Vector2f(10.f,10.f));
 	PhysObjShape.setFillColor(sf::Color::White);
 

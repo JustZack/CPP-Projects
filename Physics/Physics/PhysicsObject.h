@@ -20,7 +20,7 @@ private:
 	float g = 9.81f;
 	int windowWidth, windowHeight;
 
-	float trailInterval = .1f;
+	float trailInterval = .01f;
 	float temptrailInterval;
 	int trailLength = 100;
 	bool drawTrails;
@@ -35,7 +35,7 @@ private:
 	void PopulateTrail(float &frameTime);
 
 public:
-	//TODO: make the trail be based on a measurement of time instead of being added every frame
+	//TODO: Make the dots connect
 	//Stores a specified amount of the objects previous points
 	std::vector <sf::Vector2f> trail;
 

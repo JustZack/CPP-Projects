@@ -127,6 +127,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.h" />
     <ClInclude Include="TimeAndFrameRate.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="World.h" />
