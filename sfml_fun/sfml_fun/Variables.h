@@ -9,6 +9,6 @@
 //Less is faster
 #define PADDLE_MOVE_AMOUNT_DENOMINATOR 35
 
-#define AUTOPLAY_BOTH true
+#define AUTOPLAY_BOTH false
 #define AUTOPLAY_L false
 #define AUTOPLAY_R false
