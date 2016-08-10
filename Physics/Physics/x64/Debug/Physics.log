@@ -1,8 +1,4 @@
-﻿  World.cpp
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(13): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(105): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(111): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(113): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Object.cpp
+c:\users\just_zack\desktop\c++\physics\physics\object.cpp(98): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.exe
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.pdb (Partial PDB)

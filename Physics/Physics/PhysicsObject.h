@@ -16,12 +16,13 @@ private:
 	float accelerationAngle;
 	float PE, KE;
 
+	//These should not be stored in the class itself, and should instead be accessed by refrence from the world.
 	float scale;
 	float g = 9.81f;
 	int windowWidth, windowHeight;
-
 	float trailInterval = .01f;
 	float temptrailInterval;
+
 	int trailLength = 100;
 	bool drawTrails;
 	bool drawAccelerationMagnitude;

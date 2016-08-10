@@ -122,6 +122,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="TimeAndFrameRate.cpp" />
     <ClCompile Include="World.cpp" />
