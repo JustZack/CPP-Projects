@@ -4,7 +4,12 @@
 class DynamicObject : public Object 
 {
 public:
-	DynamicObject() : Object() {};
+	DynamicObject() : Object() 
+	{
+		isAffectedByGravity(true);
+		isMoveable(true);
+		hasCollision(true);
+	};
 	DynamicObject(float X, float Y, float Mass, float Width, float Height) : Object(X, Y, Mass, Width, Height) 
 	{
 		//TODO: Learn more about inheratence
@@ -16,7 +21,12 @@ public:
 class StaticObject : public Object
 {
 public:
-	StaticObject() : Object() {};
+	StaticObject() : Object() 
+	{
+		isAffectedByGravity(false);
+		isMoveable(false);
+		hasCollision(true);
+	};
 	StaticObject(float X, float Y, float Mass, float Width, float Height) : Object(X, Y, Mass, Width, Height)
 	{
 		//TODO: Learn more about inheratence

@@ -19,6 +19,10 @@ void Object::Init(float &X, float &Y, float &Mass, float &Width, float &Height)
 	setcoefficientOfFriction(f);
 
 	settrailTimeInterval(f);
+
+	m_shape.setSize(size());
+	m_shape.setPosition(pos());
+	m_shape.setFillColor(color());
 }
 Object::Object()
 {
@@ -52,6 +56,7 @@ void Object::Update_Position(float &frameTime, float &g)
 	//Required because this method takes everything by refrence.
 	x() += (xSpeed() * frameTime);
 	y() += (ySpeed() * frameTime);
+	m_shape.setPosition(pos());
 }
 void Object::Update_Acceleration()
 {
@@ -162,6 +167,7 @@ void Object::setDimensions(float Width, float Height)
 {
 	width() = Width;
 	height() = Height;
+	m_shape.setSize(sf::Vector2f(width(), height()));
 }
 sf::Vector2f Object::size()
 {
@@ -296,4 +302,9 @@ void Object::setTexture(sf::Texture Texture)
 sf::Texture &Object::texture()
 {
 	return m_texture;
+}
+
+sf::Shape &Object::shape()
+{
+	return m_shape;
 }

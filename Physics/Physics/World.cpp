@@ -21,6 +21,14 @@ void World::Update()
 		Objects.at(i).Update(frameTime, gravity);
 	}
 }
+void World::Draw(sf::RenderWindow &window)
+{
+	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
+	for (int i = 0; i < Objects.size(); i++) 
+	{
+		window.draw(Objects.at(i).shape());
+	}
+}
 
 std::vector<Object> World::getObjects()
 {
@@ -59,7 +67,7 @@ void World::RandReset(int ObjCount)
 	for (int i = 0; i < ObjCount; i++)
 	{
 		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
-		temp.setXSpeed(i * 1.5f);
+		temp.setXSpeed(i * 1.5);
 		temp.setbounciness(i / (ObjCount * 1.1f));
 		addObject(temp);
 	}
@@ -69,7 +77,7 @@ void World::PlaneReset(float distFromTop)
 	Objects.clear();
 	for (int i = 0; i < width; i += 1.f*scale)
 	{
-		addObject(DynamicObject(1.f, distFromTop, 50, 1.f * scale, 1.f * scale));
+		addObject(DynamicObject(i, distFromTop, 50, 1.f * scale, 1.f * scale));
 	}
 }
 

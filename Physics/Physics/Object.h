@@ -52,6 +52,9 @@ private:
 	//The texture applied to the object.
 	sf::Texture m_texture;
 
+	//Shape used to draw the object later.
+	sf::RectangleShape m_shape;
+
 	//Updates the position of the object based on gravity and its velocities.
 	void Update_Position(float &frameTime, float &g);
 	void Update_Acceleration();
@@ -60,6 +63,7 @@ private:
 	//Creates the object class using data from the constructors.
 	void Init(float &X, float &Y, float &Mass, float &Width, float &Height);
 public:
+
 	//TODO: Should every object have an on click event asociated with it? 
 
 	//All attrubutes of the object set to 10.f. 
@@ -160,4 +164,7 @@ public:
 	void setTexture(sf::Texture Texture);
 	//Returns the texture of the object.
 	sf::Texture &texture();
+
+	//Returns the shape object from the class
+	sf::Shape &shape();
 };

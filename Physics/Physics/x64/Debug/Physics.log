@@ -1,8 +1,10 @@
 ﻿  main.cpp
-c:\users\just_zack\desktop\c++\physics\physics\main.cpp(14): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\just_zack\desktop\c++\physics\physics\main.cpp(13): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   World.cpp
 c:\users\just_zack\desktop\c++\physics\physics\world.cpp(12): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\just_zack\desktop\c++\physics\physics\world.cpp(70): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\just_zack\desktop\c++\physics\physics\world.cpp(70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\just_zack\desktop\c++\physics\physics\world.cpp(78): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+c:\users\just_zack\desktop\c++\physics\physics\world.cpp(80): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating Code...
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.exe
   Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Debug\Physics.pdb (Partial PDB)

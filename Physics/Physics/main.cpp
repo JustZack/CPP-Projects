@@ -8,23 +8,9 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1800, 900), "Window");
 	//window.setPosition(sf::Vector2i(-10,0));
 	sf::Event event;
-	//window.setFramerateLimit(12);
 
 	//Create a world, and do some optionstuff with it first
-	World PhysicsWorld(window.getSize().x, window.getSize().y, 10.f, 1, 9.81f);
-
-	sf::RectangleShape PhysObjShape(sf::Vector2f(10.f,10.f));
-	PhysObjShape.setFillColor(sf::Color::White);
-
-	sf::RectangleShape trail(sf::Vector2f(1, 1));
-	trail.setFillColor(sf::Color::Blue);
-
-	sf::RectangleShape accelerationShape(sf::Vector2f(1, 1));
-	accelerationShape.setFillColor(sf::Color::Red);
-
-	PhysicsWorld.RandReset(100);
-
-	int objcount = 0;
+	World PhysicsWorld(window.getSize().x, window.getSize().y, 10.f, 1.f, 9.81f);
 
 	sf::Clock c;
 	float keyCooldown = .0f;
@@ -43,7 +29,7 @@ int main()
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 			{
-				PhysicsWorld.RandReset(100);
+				PhysicsWorld.RandReset(10000);
 			}
 			if (keyCooldown > 1.f && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			{
@@ -73,31 +59,7 @@ int main()
 		#pragma region Physics World Update and Drawing
 		//This updates ALL of the physics involved in the world
 		PhysicsWorld.Update();
-		window.setTitle(std::to_string(PhysicsWorld.getCurrentFrameRate()) + "   ||   " + std::to_string(PhysicsWorld.getCurrentFrameTime()) + "   ||   " + std::to_string(PhysicsWorld.getRunningtime()));
-		
-			//go through each physics object in the world, and draw it
-			for (int i = 0; i < PhysicsWorld.Objects.size(); i++)
-			{
-				//Draw each physics object to the window
-				PhysObjShape.setPosition(sf::Vector2f(PhysicsWorld.Objects.at(i).x(), PhysicsWorld.Objects.at(i).y()));
-				PhysObjShape.setSize(sf::Vector2f(10.f, 10.f));
-				PhysObjShape.setFillColor(PhysicsWorld.Objects.at(i).color());
-				window.draw(PhysObjShape);
-			}
-			//go through each physics object ion the world and draw its acceleration magnitude
-			if (PhysicsWorld.getdrawAccelerationMagnitude())
-			{
-				//go through each physics object in the world, and draw their acceleration arrows
-				for (int i = 0; i < PhysicsWorld.getObjects().size(); i++)
-				{
-					//Draw each physics object to the window
-					accelerationShape.setPosition(PhysicsWorld.Objects.at(i).posCenter());
-					accelerationShape.setSize(sf::Vector2f(1.f, PhysicsWorld.Objects.at(i).accelerationMagnitude()));
-					accelerationShape.setRotation(PhysicsWorld.Objects.at(i).accelerationAngle());
-					window.draw(accelerationShape);
-				}
-			}
-		
+		PhysicsWorld.Draw(window);
 		#pragma endregion
 
 		window.display();

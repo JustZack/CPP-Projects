@@ -34,7 +34,7 @@ public:
 	World(float Width, float Height, float Scale, double frameRateTimeInterval, float Gravity = 9.81f);
 
 	void Update();
-
+	void Draw(sf::RenderWindow &window);
 	void showAccelerationMagnitude();
 	void hideAccelerationMagnitude();
 	bool getdrawAccelerationMagnitude();
@@ -43,7 +43,6 @@ public:
 
 	void addObject(Object newObject);
 
-	void GeneralReset();
 	void RandReset(int ObjCount);
 	void PlaneReset(float distFromTop);
 
