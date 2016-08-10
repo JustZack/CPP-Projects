@@ -37,4 +37,6 @@ public:
 	float getCurrentFrameTime();
 	//Return how long the app has been runing
 	float getRunningtime();
+
+	void Reset();
 };

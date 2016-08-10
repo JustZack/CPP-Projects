@@ -1,0 +1,13 @@
+﻿  TimeAndFrameRate.cpp
+  World.cpp
+World.cpp(12): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+World.cpp(77): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+main.cpp(14): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Generating code
+  13 of 380 functions ( 3.4%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Release\Physics.exe
+  Physics.vcxproj -> C:\Users\Just_Zack\Desktop\C++\Physics\x64\Release\Physics.pdb (Full PDB)

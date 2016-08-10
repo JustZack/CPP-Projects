@@ -8,87 +8,44 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 	gravity = Gravity;
 
 	drawAccelerationMagnitudes = false;
-	drawTrails = false;
 
-	tAndfr.setInterval(frameRateTimeInterval);
+	Timer.setInterval(frameRateTimeInterval);
 }
 
 void World::Update()
 {
-	tAndfr.Increment();
-	frameTime = tAndfr.getCurrentFrameTime();
-	for (int i = 0; i < PhysicsObjects.size(); i++)
+	Timer.Increment();
+	frameTime = Timer.getCurrentFrameTime();
+	for (int i = 0; i < Objects.size(); i++)
 	{
-		PhysicsObjects.at(i).Update(frameTime);
+		Objects.at(i).Update(frameTime, gravity);
 	}
 }
 
-void World::addPhysObject(PhysicsObject newObject, float xSpeed)
+std::vector<Object> World::getObjects()
 {
-	newObject.setWorldConstants(scale, width, height, gravity, trailLength);
-	newObject.setXSpeed(xSpeed);
-	if (drawTrails)
-	{
-		newObject.showTrails();
-	}
-	else
-	{
-		newObject.hideTrails();
-	}
-	if (drawAccelerationMagnitudes)
-	{
-		newObject.showAccelerationMagnitude();
-	}
-	else
-	{
-		newObject.hideAccelerationMagnitude();
-	}
-	PhysicsObjects.push_back(newObject);
+	return Objects;
 }
 
-void World::setTrailLength(int TrailLength)
+void World::addObject(Object newObject)
 {
-	trailLength = TrailLength;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
-	{
-		PhysicsObjects.at(i).setTrailLength(trailLength);
-	}
-}
-void World::showTrails()
-{
-	drawTrails = true;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
-	{
-		PhysicsObjects.at(i).showTrails();
-	}
-}
-void World::hideTrails()
-{
-	drawTrails = false;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
-	{
-		PhysicsObjects.at(i).hideTrails();
-	}
-}
-bool World::getdrawTrails()
-{
-	return drawTrails;
+	Objects.push_back(newObject);
 }
 
 void World::showAccelerationMagnitude()
 {
 	drawAccelerationMagnitudes = true;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
+	for (int i = 0; i < Objects.size(); i++)
 	{
-		PhysicsObjects.at(i).showAccelerationMagnitude();
+		Objects.at(i).showacceleration(false);
 	}
 }
 void World::hideAccelerationMagnitude()
 {
 	drawAccelerationMagnitudes = false;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
+	for (int i = 0; i < Objects.size(); i++)
 	{
-		PhysicsObjects.at(i).hideAccelerationMagnitude();
+		Objects.at(i).showacceleration(false);
 	}
 }
 bool World::getdrawAccelerationMagnitude()
@@ -96,44 +53,29 @@ bool World::getdrawAccelerationMagnitude()
 	return drawAccelerationMagnitudes;
 }
 
-
 void World::RandReset(int ObjCount)
 {
-	PhysicsObjects.clear();
+	Objects.clear();
 	for (int i = 0; i < ObjCount; i++)
 	{
-		addPhysObject(PhysicsObject(1.f, 1.f, 10.f, 10.f, 500, i / (ObjCount * 1.1f), 1, sf::Color::Red), i);
+		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
+		temp.setXSpeed(i * 1.5f);
+		temp.setbounciness(i / (ObjCount * 1.1f));
+		addObject(temp);
 	}
 }
 void World::PlaneReset(float distFromTop)
 {
-	PhysicsObjects.clear();
+	Objects.clear();
 	for (int i = 0; i < width; i += 1.f*scale)
 	{
-		addPhysObject(PhysicsObject(1.f, 1.f, i, distFromTop, 500, .65f, 1, sf::Color::Red), 0.f);
+		addObject(DynamicObject(1.f, distFromTop, 50, 1.f * scale, 1.f * scale));
 	}
 }
 
-void World::setCollision(bool Collide)
+float World::getCurrentFrameRate()
 {
-	collisions = Collide;
-	for (int i = 0; i < PhysicsObjects.size(); i++)
-	{
-		PhysicsObjects.at(i).setCollision(collisions);
-	}
-}
-bool World::getCollision()
-{
-	return collisions;
-}
-
-std::string World::getCurrentFrameRate_string()
-{
-	return std::to_string(tAndfr.getCurrentFrameRate());
-}
-float World::getCurrentFrameRate_float()
-{
-	return tAndfr.getCurrentFrameRate();
+	return Timer.getCurrentFrameRate();
 }
 
 float World::getCurrentFrameTime()
@@ -142,10 +84,10 @@ float World::getCurrentFrameTime()
 }
 void World::setFrameRateInterval(float newInterval)
 {
-	tAndfr.setInterval(newInterval);
+	Timer.setInterval(newInterval);
 }
 
 float World::getRunningtime()
 {
-	return tAndfr.getRunningtime();
+	return Timer.getRunningtime();
 }

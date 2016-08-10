@@ -47,3 +47,8 @@ float TimeAndFrameRate::getRunningtime()
 {
 	return totalTime;
 }
+
+void TimeAndFrameRate::Reset()
+{
+	totalTime = 0.f;
+}

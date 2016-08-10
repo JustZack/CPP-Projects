@@ -20,7 +20,7 @@ private:
 	float scale;
 	float g = 9.81f;
 	int windowWidth, windowHeight;
-	float trailInterval = .01f;
+	float trailInterval = .5f;
 	float temptrailInterval;
 
 	int trailLength = 100;
