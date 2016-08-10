@@ -30,6 +30,9 @@ private:
 	//Determines if gravity acts on this object. Defaults to true.
 	bool m_isAffectedByGravity = true;
 
+	//Determines if the object can be moved by other objects.
+	bool m_isMoveable = true;
+
 	//Determines if the object collides with any other objects. Defaults to true.
 	bool m_hasCollision = true;
 	//Interger determining which layer of collision the object is on. Only objects on the same layer collide. Defualts to 0, the first layer.
@@ -108,6 +111,11 @@ public:
 	void isAffectedByGravity(bool &AffectedByGravity);
 	//Returns the value of whether or not the object is affected by gravity.
 	bool &isAffectedByGravity();
+
+	//Determines if the object can be moved by other objects.
+	void isMoveable(bool &Moveable);
+	//Returns the value of whether or not the object is moveable.
+	bool &isMoveable();
 
 	//Determines if the object collides with other colliding objects.
 	void hasCollision(bool &Collides);

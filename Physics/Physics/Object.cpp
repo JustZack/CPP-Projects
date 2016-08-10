@@ -197,6 +197,15 @@ bool &Object::isAffectedByGravity()
 	return m_isAffectedByGravity;
 }
 
+void Object::isMoveable(bool &Moveable)
+{
+	isMoveable() = Moveable;
+}
+bool &Object::isMoveable()
+{
+	return m_isMoveable;
+}
+
 void Object::hasCollision(bool &Collides)
 {
 	hasCollision() = Collides;
