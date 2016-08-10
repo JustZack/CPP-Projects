@@ -90,32 +90,71 @@ void PhysicsObject::MathCalculations(float &frameTime)
 	PE = mass * g * (windowHeight - (y + height));
 	if (drawAccelerationMagnitude)
 	{
-		acceleration = abs(sqrt((xSpeed * xSpeed) + (ySpeed * ySpeed)));
+		//Object is mocing straight down or up.
+		if (abs(xSpeed) == 0 && abs(ySpeed) > 0)
+		{
+			acceleration = ySpeed;
+			//Object is moving down
+			if (ySpeed > 0)
+			{
+				accelerationAngle = 0.f;
+			}
+			//Object is moving up
+			else if (ySpeed < 0)
+			{
+				accelerationAngle = 0.f;
+			}
 
-		//TODO make sure that if the object has any zero speed, angle is still calculated
-		//This block is the calculation for the angle of acceleration.
-		//The odd if statment additions to the angle act as corrections
-		//EX: in quadrant one the angle is 90 degrees too high, so take away 90.
-		accelerationAngle = (atan2(ySpeed, xSpeed) * 180 / M_PI);
-		if (xSpeed > 0 && -ySpeed > 0)
-		{
-			//Do nothing, first quadrant
-			accelerationAngle -= 90;
 		}
-		if (xSpeed < 0 && -ySpeed > 0)
+		//Object is moving straight left or right.
+		else if (abs(ySpeed) == 0 && abs(xSpeed) > 0)
 		{
-			//Second Quadrant
-			accelerationAngle += 270;
+			acceleration = xSpeed;
+			//Object is moving right
+			if (xSpeed > 0)
+			{
+				std::cout << "kek" << std::endl;
+				accelerationAngle = 270.f;
+			}
+			//Object is moving left
+			else if (xSpeed < 0)
+			{
+				accelerationAngle = 270.f;
+			}
 		}
-		if (xSpeed < 0 && -ySpeed < 0)
+		//Object is not moving at all.
+		else if (abs(ySpeed) == 0 && abs(xSpeed) == 0)
 		{
-			//Third Quadrant
-			accelerationAngle += 270;
+			acceleration = 0.f;
+			accelerationAngle = 0.f;
 		}
-		if (xSpeed > 0 && -ySpeed < 0)
+		//Object is moving in both directions
+		else if (abs(ySpeed) > 0 && abs(xSpeed) > 0)
 		{
-			//Fourth Quadrant
-			accelerationAngle += 270;
+			//Calculate the acceleration magnitude as a vector (hypotonuse) of the x and y speed.
+			acceleration = abs(sqrt((xSpeed * xSpeed) + (ySpeed * ySpeed)));
+			//Calculate the acceleration angle from the the triangle that is formed by the x and y speed.
+			accelerationAngle = (atan2(ySpeed, xSpeed) * 180 / M_PI);
+			if (xSpeed > 0 && -ySpeed > 0)
+			{
+				//First quadrant
+				accelerationAngle -= 90;
+			}
+			if (xSpeed < 0 && -ySpeed > 0)
+			{
+				//Second Quadrant
+				accelerationAngle += 270;
+			}
+			if (xSpeed < 0 && -ySpeed < 0)
+			{
+				//Third Quadrant
+				accelerationAngle += 270;
+			}
+			if (xSpeed > 0 && -ySpeed < 0)
+			{
+				//Fourth Quadrant
+				accelerationAngle += 270;
+			}
 		}
 	}
 	x += (xSpeed * frameTime);

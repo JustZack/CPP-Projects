@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "PhysicsObject.h"
+#include "Object.h"
+#include "Objects.h"
 #include "TimeAndFrameRate.h"
 
 class World
@@ -13,57 +15,41 @@ private:
 	float scale;
 	//The global variable for gravity. For and Earth based enviroment it should be 9.81m/s 
 	float gravity;
-	//Boolean determining if trails should be drawn for objects
-	bool drawTrails;
 	//Boolean determining if any acceleration magnitudes will be draw for objects
 	bool drawAccelerationMagnitudes;
-	//Boolean determining if anything in the world collides with eachother. 
-	//there are seperate collision properties for every physics object the determine if they have collision
-	bool collisions = true;
 	
-	int trailLength = 100;
 	//TODO: Add a collision layer system...
 		//This layer sytem would allow specific physics object to only collide with objects on their layer
 
 	//Keeps track off many things having to do with time, such as framerate, and the frame time
-	TimeAndFrameRate tAndfr;
+	TimeAndFrameRate Timer;
 	//Current time the last frame took to render
 	float frameTime;
 
 public:
+	std::vector<Object> Objects;
 	//'array' for any objects physics will act on
-	std::vector<PhysicsObject> PhysicsObjects;
 	//'array' for any object that physics will not act on
 	//std::vector<StaticObject> StaticObjects
 	World(float Width, float Height, float Scale, double frameRateTimeInterval, float Gravity = 9.81f);
 
-	void setTrailLength(int TrailLength);
-	void showTrails();
-	void hideTrails();
-	bool getdrawTrails();
+	void Update();
 
 	void showAccelerationMagnitude();
 	void hideAccelerationMagnitude();
 	bool getdrawAccelerationMagnitude();
 
-	void Update();
+	std::vector<Object> getObjects();
 
-	void addPhysObject(PhysicsObject newObject, float xSpeed = 2.5f);
-	//void addStaticObject(StaticObject newObject);
+	void addObject(Object newObject);
 
 	void GeneralReset();
 	void RandReset(int ObjCount);
 	void PlaneReset(float distFromTop);
 
-	void setCollision(bool Collide);
-	bool getCollision();
-
-	std::string getCurrentFrameRate_string();
-	float getCurrentFrameRate_float();
+	float getCurrentFrameRate();
 
 	float getCurrentFrameTime();
 	void setFrameRateInterval(float newInterval);
 	float getRunningtime();
-
-
 };
