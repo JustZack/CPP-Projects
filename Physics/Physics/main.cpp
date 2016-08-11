@@ -22,14 +22,11 @@ int main()
 			}
 		}
 		window.clear();
-		
-		//This block updates the locations of all objects in the world
-		//and draws them to the screen
-		#pragma region Physics World Update and Drawing
-		//This updates ALL of the physics involved in the world
+
+		//Updates the position of all objects in the world.
 		PhysicsWorld.Update();
+		//Draws all objects in the world to the window.
 		PhysicsWorld.Draw(window);
-		#pragma endregion
 
 		window.display();
 	}

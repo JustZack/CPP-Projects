@@ -41,6 +41,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow &window);
 	void keyPressCheck();
+	void collisionCheck();
 
 	void showAccelerationMagnitude();
 	void hideAccelerationMagnitude();
@@ -52,7 +53,7 @@ public:
 
 	void addObject(Object newObject);
 
-	void RandReset(int ObjCount);
+	void RandReset(int ObjCount, bool clearObjs = true);
 	void PlaneReset(float distFromTop);
 
 	float getCurrentFrameRate();

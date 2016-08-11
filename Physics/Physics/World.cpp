@@ -10,12 +10,6 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 	drawAccelerationMagnitudes = false;
 
 	Timer.setInterval(frameRateTimeInterval);
-
-	addObject(StaticObject(0.f,0.f,10.f,10.f,height));
-	addObject(StaticObject(0.f, 0.f, 10.f, width, 10.f));
-	addObject(StaticObject(0.f, height - 10.f, 10.f, width, 10.f));
-	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, 900.f));
-
 }
 
 void World::Update()
@@ -25,6 +19,14 @@ void World::Update()
 	for (int i = 0; i < Objects.size(); i++)
 	{
 		Objects.at(i).Update(frameTime, gravity);
+		if (Objects.at(i).x() > width || Objects.at(i).y() > height || Objects.at(i).x() + Objects.at(i).width() < 0.f || Objects.at(i).y() + Objects.at(i).height() < 0.f)
+		{
+			Objects.at(i).isOnScreen(false);
+		}
+		else
+		{
+			Objects.at(i).isOnScreen(true);
+		}
 	}
 }
 void World::Draw(sf::RenderWindow &window)
@@ -33,16 +35,23 @@ void World::Draw(sf::RenderWindow &window)
 	{
 		keyPressCheck();
 	}
+	collisionCheck();
 	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
 	for (int i = 0; i < Objects.size(); i++) 
 	{
-		window.draw(Objects.at(i).shape());
+		if (Objects.at(i).isOnScreen())
+		{
+			window.draw(Objects.at(i).shape());
+		}
 	}
 	if (getdrawAccelerationMagnitude())
 	{
 		for (int i = 0; i < Objects.size(); i++)
 		{
-			window.draw(Objects.at(i).accelerationShape());
+			if (Objects.at(i).isOnScreen())
+			{
+				window.draw(Objects.at(i).accelerationShape());
+			}
 		}
 	}
 }
@@ -64,8 +73,13 @@ void World::keyPressCheck()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && tempKeyInterval >= keyInterval)
 	{
 		tempKeyInterval = 0.f;
-		RandReset(100);
+		//PlaneReset(10.f);
+		RandReset(100, false);
 	}
+}
+void World::collisionCheck()
+{
+	
 }
 
 std::vector<Object> World::getObjects()
@@ -83,7 +97,7 @@ void World::showAccelerationMagnitude()
 	drawAccelerationMagnitudes = true;
 	for (int i = 0; i < Objects.size(); i++)
 	{
-		Objects.at(i).showacceleration(false);
+		Objects.at(i).showacceleration(true);
 	}
 }
 void World::hideAccelerationMagnitude()
@@ -99,9 +113,22 @@ bool World::getdrawAccelerationMagnitude()
 	return drawAccelerationMagnitudes;
 }
 
-void World::RandReset(int ObjCount)
+void World::RandReset(int ObjCount, bool clearObjs)
 {
-	//Objects.clear();
+	if (clearObjs)
+	{
+		Objects.clear();
+	}
+	//TODO: Add method that creates these simple bounds around the screen.
+	//Right side
+	addObject(StaticObject(0.f, 0.f, 10.f, 10.f, height));
+	//Top
+	addObject(StaticObject(10.f, 0.f, 10.f, width - 20, 10.f));
+	//Bottom
+	addObject(StaticObject(10.f, height - 10.f, 10.f, width - 20.f, 10.f));
+	//Left side
+	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, height));
+
 	for (int i = 0; i < ObjCount; i++)
 	{
 		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
@@ -113,9 +140,20 @@ void World::RandReset(int ObjCount)
 void World::PlaneReset(float distFromTop)
 {
 	Objects.clear();
-	for (int i = 0; i < width; i += 1.f*scale)
+
+	//TODO: Add method that creates these simple bounds around the screen.
+	//Right side
+	addObject(StaticObject(0.f, 0.f, 10.f, 10.f, height));
+	//Top
+	addObject(StaticObject(10.f, 0.f, 10.f, width - 20, 10.f));
+	//Bottom
+	addObject(StaticObject(10.f, height - 10.f, 10.f, width - 20.f, 10.f));
+	//Left side
+	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, height));
+
+	for (int i = 0; i < width- 30.f; i += 1.f*scale)
 	{
-		addObject(DynamicObject(i, distFromTop, 50, 1.f * scale, 1.f * scale));
+		addObject(DynamicObject(i + 15.f, distFromTop, 50, 1.f * scale, 1.f * scale));
 	}
 }
 

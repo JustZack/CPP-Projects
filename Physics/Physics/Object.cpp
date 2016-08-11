@@ -58,11 +58,14 @@ void Object::Update_Position(float &frameTime, float &g)
 	//Required because this method takes everything by refrence.
 	x() += (xSpeed() * frameTime);
 	y() += (ySpeed() * frameTime);
-	m_shape.setPosition(pos());
+	if (isOnScreen())
+	{
+		m_shape.setPosition(pos());
+	}
 }
 void Object::Update_Acceleration()
 {
-	//Object is mocing straight down or up.
+	//Object is moving straight down or up.
 	if (abs(xSpeed()) == 0 && abs(ySpeed()) > 0)
 	{
 		accelerationMagnitude() = ySpeed();
@@ -127,9 +130,19 @@ void Object::Update_Acceleration()
 			accelerationAngle() += 270;
 		}
 	}
-	accelerationShape().setSize(sf::Vector2f(1.f, accelerationMagnitude()));
-	accelerationShape().setRotation(accelerationAngle());
-	accelerationShape().setPosition(posCenter());
+	if (isOnScreen())
+	{
+		if (accelerationMagnitude() == 0)
+		{
+			showacceleration(false);
+		}
+		if (showacceleration())
+		{
+			accelerationShape().setSize(sf::Vector2f(1.f, accelerationMagnitude()));
+			accelerationShape().setRotation(accelerationAngle());
+			accelerationShape().setPosition(posCenter());
+		}
+	}
 }
 void Object::Update_PopulateTrail(float &frameTime)
 {
@@ -260,6 +273,15 @@ void Object::isMoveable(bool Moveable)
 bool &Object::isMoveable()
 {
 	return m_isMoveable;
+}
+
+void Object::isOnScreen(bool OnScreen)
+{
+	isOnScreen() = OnScreen;
+}
+bool &Object::isOnScreen()
+{
+	return m_isOnScreen;
 }
 
 void Object::hasCollision(bool Collides)

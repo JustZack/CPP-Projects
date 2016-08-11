@@ -35,6 +35,9 @@ private:
 	//Determines if the object can be moved by other objects.
 	bool m_isMoveable;
 
+	//Determines if the object is within the bounds of the window. Defualts to true.
+	bool m_isOnScreen = true;
+
 	//Determines if the object collides with any other objects. Defaults to true.
 	bool m_hasCollision;
 	//Interger determining which layer of collision the object is on. Only objects on the same layer collide. Defualts to 0, the first layer.
@@ -140,6 +143,12 @@ public:
 	void isMoveable(bool Moveable);
 	//Returns the value of whether or not the object is moveable.
 	bool &isMoveable();
+
+	//Determines if the object is onscreen. Manipulated by the world class.
+	void isOnScreen(bool OnScreen);
+	//Returns the value fo wheter or not the object is on screen.
+	bool &isOnScreen();
+
 
 	//Determines if the object collides with other colliding objects.
 	void hasCollision(bool Collides);
