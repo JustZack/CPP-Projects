@@ -10,6 +10,12 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 	drawAccelerationMagnitudes = false;
 
 	Timer.setInterval(frameRateTimeInterval);
+
+	addObject(StaticObject(0.f,0.f,10.f,10.f,height));
+	addObject(StaticObject(0.f, 0.f, 10.f, width, 10.f));
+	addObject(StaticObject(0.f, height - 10.f, 10.f, width, 10.f));
+	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, 900.f));
+
 }
 
 void World::Update()
@@ -23,10 +29,42 @@ void World::Update()
 }
 void World::Draw(sf::RenderWindow &window)
 {
+	if (window.hasFocus())
+	{
+		keyPressCheck();
+	}
 	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
 	for (int i = 0; i < Objects.size(); i++) 
 	{
 		window.draw(Objects.at(i).shape());
+	}
+	if (getdrawAccelerationMagnitude())
+	{
+		for (int i = 0; i < Objects.size(); i++)
+		{
+			window.draw(Objects.at(i).accelerationShape());
+		}
+	}
+}
+void World::keyPressCheck()
+{
+	tempKeyInterval += frameTime;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && tempKeyInterval >= keyInterval)
+	{
+		tempKeyInterval = 0.f;
+		if (getdrawAccelerationMagnitude())
+		{
+			hideAccelerationMagnitude();
+		}
+		else if (!getdrawAccelerationMagnitude())
+		{
+			showAccelerationMagnitude();
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && tempKeyInterval >= keyInterval)
+	{
+		tempKeyInterval = 0.f;
+		RandReset(100);
 	}
 }
 
@@ -63,11 +101,11 @@ bool World::getdrawAccelerationMagnitude()
 
 void World::RandReset(int ObjCount)
 {
-	Objects.clear();
+	//Objects.clear();
 	for (int i = 0; i < ObjCount; i++)
 	{
 		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
-		temp.setXSpeed(i * 1.5);
+		temp.setXSpeed(i);
 		temp.setbounciness(i / (ObjCount * 1.1f));
 		addObject(temp);
 	}

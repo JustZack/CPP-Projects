@@ -69,12 +69,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Just_Zack\Desktop\SFML-2.4.0\include;C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Just_Zack\Desktop\SFML-2.4.0\lib;C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>C:\Users\Just_Zack\Desktop\SFML-2.4.0\lib;C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Just_Zack\Downloads\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\include;C:\Users\Just_Zack\Desktop\SFML-2.4.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

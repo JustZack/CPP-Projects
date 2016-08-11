@@ -26,6 +26,7 @@ public:
 		isAffectedByGravity(false);
 		isMoveable(false);
 		hasCollision(true);
+		setColor(sf::Color::Yellow);
 	};
 	StaticObject(float X, float Y, float Mass, float Width, float Height) : Object(X, Y, Mass, Width, Height)
 	{
@@ -33,5 +34,6 @@ public:
 		isAffectedByGravity(false);
 		isMoveable(false);
 		hasCollision(true);
+		setColor(sf::Color::Yellow);
 	};
 };

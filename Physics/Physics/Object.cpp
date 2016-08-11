@@ -23,6 +23,8 @@ void Object::Init(float &X, float &Y, float &Mass, float &Width, float &Height)
 	m_shape.setSize(size());
 	m_shape.setPosition(pos());
 	m_shape.setFillColor(color());
+
+	m_accelerationShape.setFillColor(sf::Color::Red);
 }
 Object::Object()
 {
@@ -125,6 +127,9 @@ void Object::Update_Acceleration()
 			accelerationAngle() += 270;
 		}
 	}
+	accelerationShape().setSize(sf::Vector2f(1.f, accelerationMagnitude()));
+	accelerationShape().setRotation(accelerationAngle());
+	accelerationShape().setPosition(posCenter());
 }
 void Object::Update_PopulateTrail(float &frameTime)
 {
@@ -140,6 +145,7 @@ void Object::setPosition(float X, float Y)
 {
 	x() = X;
 	y() = Y;
+	m_shape.setPosition(pos());
 }
 sf::Vector2f Object::pos()
 {
@@ -289,6 +295,7 @@ float &Object::trailTimeInterval()
 void Object::setColor(sf::Color Color)
 {
 	color() = Color;
+	m_shape.setFillColor(color());
 }
 sf::Color &Object::color()
 {
@@ -308,3 +315,9 @@ sf::Shape &Object::shape()
 {
 	return m_shape;
 }
+
+sf::RectangleShape &Object::accelerationShape()
+{
+	return m_accelerationShape;
+}
+

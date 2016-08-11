@@ -12,9 +12,6 @@ int main()
 	//Create a world, and do some optionstuff with it first
 	World PhysicsWorld(window.getSize().x, window.getSize().y, 10.f, 1.f, 9.81f);
 
-	sf::Clock c;
-	float keyCooldown = .0f;
-
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))
@@ -24,34 +21,6 @@ int main()
 				window.close();
 			}
 		}
-
-		if (window.hasFocus())
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-			{
-				PhysicsWorld.RandReset(10000);
-			}
-			if (keyCooldown > 1.f && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			{
-				keyCooldown = .0f;
-				if (PhysicsWorld.getdrawAccelerationMagnitude())
-				{
-					PhysicsWorld.hideAccelerationMagnitude();
-				}
-				else if (!PhysicsWorld.getdrawAccelerationMagnitude())
-				{
-					PhysicsWorld.showAccelerationMagnitude();
-				}
-			}
-			if (keyCooldown > 1.f && sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-			{
-				keyCooldown = .0f;
-				sf::Image screenshot = window.capture();
-				screenshot.saveToFile("C:\\Users\\Just_Zack\\Desktop\\App_ScreenShot.png");
-			}
-		}
-
-		keyCooldown += PhysicsWorld.getCurrentFrameTime();
 		window.clear();
 		
 		//This block updates the locations of all objects in the world

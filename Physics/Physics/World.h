@@ -26,6 +26,11 @@ private:
 	//Current time the last frame took to render
 	float frameTime;
 
+	//Amount of time between keypresses being registered
+	float keyInterval = .15f;
+	//Temp amount of time that has passed
+	float tempKeyInterval = 0.f;
+
 public:
 	std::vector<Object> Objects;
 	//'array' for any objects physics will act on
@@ -35,9 +40,13 @@ public:
 
 	void Update();
 	void Draw(sf::RenderWindow &window);
+	void keyPressCheck();
+
 	void showAccelerationMagnitude();
 	void hideAccelerationMagnitude();
 	bool getdrawAccelerationMagnitude();
+
+
 
 	std::vector<Object> getObjects();
 

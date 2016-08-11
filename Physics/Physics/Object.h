@@ -55,6 +55,9 @@ private:
 	//Shape used to draw the object later.
 	sf::RectangleShape m_shape;
 
+	//Shape used to draw the acceleration magnitude.
+	sf::RectangleShape m_accelerationShape;
+
 	//Updates the position of the object based on gravity and its velocities.
 	void Update_Position(float &frameTime, float &g);
 	void Update_Acceleration();
@@ -167,4 +170,7 @@ public:
 
 	//Returns the shape object from the class
 	sf::Shape &shape();
+
+	//Returns the shape object from the class
+	sf::RectangleShape &accelerationShape();
 };
