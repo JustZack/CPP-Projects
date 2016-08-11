@@ -1,6 +1,7 @@
 #include "Object.h"
 #define _USE_MATH_DEFINES 
 #include <math.h>
+#include <iostream>
 
 //TODO: put the calculations of position on a seperate thread that is created when the object is created.
 
@@ -278,6 +279,10 @@ bool &Object::isMoveable()
 void Object::isOnScreen(bool OnScreen)
 {
 	isOnScreen() = OnScreen;
+	if (isOnScreen())
+	{
+
+	}
 }
 bool &Object::isOnScreen()
 {

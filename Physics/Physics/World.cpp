@@ -26,6 +26,7 @@ void World::Update()
 		else
 		{
 			Objects.at(i).isOnScreen(true);
+			Objects.at(i).showacceleration(getdrawAccelerationMagnitude());
 		}
 	}
 }
@@ -57,7 +58,9 @@ void World::Draw(sf::RenderWindow &window)
 }
 void World::keyPressCheck()
 {
+	//Record how long is has been since the last keypress
 	tempKeyInterval += frameTime;
+	//Turn on acceleration magnitude
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && tempKeyInterval >= keyInterval)
 	{
 		tempKeyInterval = 0.f;
@@ -70,11 +73,12 @@ void World::keyPressCheck()
 			showAccelerationMagnitude();
 		}
 	}
+	//Reset 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && tempKeyInterval >= keyInterval)
 	{
 		tempKeyInterval = 0.f;
 		//PlaneReset(10.f);
-		RandReset(100, false);
+		RandReset(100, true);
 	}
 }
 void World::collisionCheck()
@@ -97,7 +101,10 @@ void World::showAccelerationMagnitude()
 	drawAccelerationMagnitudes = true;
 	for (int i = 0; i < Objects.size(); i++)
 	{
-		Objects.at(i).showacceleration(true);
+		if (Objects.at(i).isOnScreen())
+		{
+			Objects.at(i).showacceleration(true);
+		}
 	}
 }
 void World::hideAccelerationMagnitude()
@@ -132,8 +139,10 @@ void World::RandReset(int ObjCount, bool clearObjs)
 	for (int i = 0; i < ObjCount; i++)
 	{
 		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
-		temp.setXSpeed(i);
+		temp.setXSpeed(i * 1);
+		temp.setYSpeed(-i / 2);
 		temp.setbounciness(i / (ObjCount * 1.1f));
+		temp.showacceleration(getdrawAccelerationMagnitude());
 		addObject(temp);
 	}
 }

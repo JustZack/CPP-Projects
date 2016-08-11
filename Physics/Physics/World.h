@@ -32,9 +32,8 @@ private:
 	float tempKeyInterval = 0.f;
 
 public:
+	//'array' for any objects in the world
 	std::vector<Object> Objects;
-	//'array' for any objects physics will act on
-	//'array' for any object that physics will not act on
 	//std::vector<StaticObject> StaticObjects
 	World(float Width, float Height, float Scale, double frameRateTimeInterval, float Gravity = 9.81f);
 
