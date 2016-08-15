@@ -11,9 +11,12 @@ private:
 	float m_mass;
 	//Dimensions of the object in pixels * worldScale.
 	float m_width, m_height;
+	//Vector representing the the "radius" of the object. Vector of the height and width / 2
+	float m_radius;
 	//Velocities in the x and y direction. origional velocities are multiplied by the worldScale.
 	float m_xSpeed, m_ySpeed;
-
+	//Name for the object. Allows me to make an object called 'Ball' or 'table'
+	std::string m_name;
 	//TODO: Add other vairables for calculating certain physics characteristics
 
 	//TODO: Differenciate bounciness and coeficient of friction!
@@ -65,6 +68,7 @@ private:
 	void Update_Position(float &frameTime, float &g);
 	void Update_Acceleration();
 	void Update_PopulateTrail(float &frametime);
+	void WindowEdgeCollisionCheck();
 
 	//Creates the object class using data from the constructors.
 	void Init(float &X, float &Y, float &Mass, float &Width, float &Height);
@@ -106,6 +110,9 @@ public:
 	//Return the height of the object
 	float &height();
 
+	//Returns the radius of the object.
+	float &radius();
+
 	//Set the velocity of the object along the X-Axis.
 	void setXSpeed(float XSpeed);
 	//Return the velocity of the object along X-Axis.
@@ -114,6 +121,9 @@ public:
 	void setYSpeed(float YSpeed);
 	//Return the velocity of the object along Y-Axis.
 	float &ySpeed();
+
+	//Return the name of the object and set with thie variable > name() = "name";
+	std::string &name();
 
 	//Returns the acceleration magnitude, which is the vector of the x and y speed.
 	float &accelerationMagnitude();

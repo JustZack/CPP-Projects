@@ -42,6 +42,7 @@ void Object::Update(float &frameTime, float &g)
 	Update_Position(frameTime, g);
 	Update_Acceleration();
 	Update_PopulateTrail(frameTime);
+	WindowEdgeCollisionCheck();
 }
 void Object::Update_Position(float &frameTime, float &g)
 {
@@ -154,6 +155,48 @@ void Object::Update_PopulateTrail(float &frameTime)
 		m_trail.push_back(posCenter());
 	}
 }
+void Object::WindowEdgeCollisionCheck()
+{
+	if (x() + width() >= 1800 || x() <= 0)
+	{
+		if (x() + width() >= 1800)
+		{
+			if (xSpeed() > 0)
+			{
+				xSpeed() *= -bounciness();
+				ySpeed() *= bounciness();
+			}
+		}
+		else if (x() <= 0)
+		{
+			if (xSpeed() < 0)
+			{
+				xSpeed() *= -bounciness();
+				ySpeed() *= bounciness();
+			}
+		}
+	}
+	if (y() + height() >= 900 || y() <= 0)
+	{
+		if (y() + height() >= 900)
+		{
+			y() = 900 - height();
+			if (ySpeed() > 0)
+			{
+				ySpeed() *= -bounciness();
+				xSpeed() *= bounciness();
+			}
+		}
+		else if (y() <= 0)
+		{
+			if (ySpeed() < 0)
+			{
+				ySpeed() *= -bounciness();
+				xSpeed() *= bounciness();
+			}
+		}
+	}
+}
 
 void Object::setPosition(float X, float Y)
 {
@@ -188,6 +231,8 @@ void Object::setDimensions(float Width, float Height)
 	width() = Width;
 	height() = Height;
 	m_shape.setSize(sf::Vector2f(width(), height()));
+	radius() = sqrt(((height() / 2) * (height() / 2)) + ((width() / 2) + (width() / 2)));
+	
 }
 sf::Vector2f Object::size()
 {
@@ -206,6 +251,11 @@ float &Object::height()
 	return m_height;
 }
 
+float &Object::radius()
+{
+	return m_radius;
+}
+
 void Object::setXSpeed(float XSpeed)
 {
 	xSpeed() = XSpeed;
@@ -221,6 +271,11 @@ void Object::setYSpeed(float YSpeed)
 float &Object::ySpeed()
 {
 	return m_ySpeed;
+}
+
+std::string &Object::name()
+{
+	return m_name;
 }
 
 float &Object::accelerationMagnitude()

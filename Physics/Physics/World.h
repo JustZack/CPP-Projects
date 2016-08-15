@@ -17,7 +17,7 @@ private:
 	float gravity;
 	//Boolean determining if any acceleration magnitudes will be draw for objects
 	bool drawAccelerationMagnitudes;
-	
+
 	//TODO: Add a collision layer system...
 		//This layer sytem would allow specific physics object to only collide with objects on their layer
 
@@ -31,6 +31,9 @@ private:
 	//Temp amount of time that has passed
 	float tempKeyInterval = 0.f;
 
+	bool showtrails = false;
+	bool &showTrais();
+	sf::RectangleShape trail;
 public:
 	//'array' for any objects in the world
 	std::vector<Object> Objects;
@@ -40,13 +43,11 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow &window);
 	void keyPressCheck();
-	void collisionCheck();
+	void collisionCheck_Broad();
 
 	void showAccelerationMagnitude();
 	void hideAccelerationMagnitude();
 	bool getdrawAccelerationMagnitude();
-
-
 
 	std::vector<Object> getObjects();
 

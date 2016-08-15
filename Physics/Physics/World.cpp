@@ -10,6 +10,9 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 	drawAccelerationMagnitudes = false;
 
 	Timer.setInterval(frameRateTimeInterval);
+
+	trail.setFillColor(sf::Color::Blue);
+	trail.setSize(sf::Vector2f(1,1));
 }
 
 void World::Update()
@@ -36,8 +39,19 @@ void World::Draw(sf::RenderWindow &window)
 	{
 		keyPressCheck();
 	}
-	collisionCheck();
+	//collisionCheck_Broad();
 	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
+	if (showTrais())
+	{
+		for (int i = 0; i < Objects.size(); i++)
+		{
+			for (int j = 0; j < Objects.at(i).gettrail().size(); j++)
+			{
+				trail.setPosition(Objects.at(i).gettrail().at(j));
+				window.draw(trail);
+			}
+		}
+	}
 	for (int i = 0; i < Objects.size(); i++) 
 	{
 		if (Objects.at(i).isOnScreen())
@@ -78,12 +92,40 @@ void World::keyPressCheck()
 	{
 		tempKeyInterval = 0.f;
 		//PlaneReset(10.f);
-		RandReset(100, true);
+		RandReset(25);
+	}
+	//show trails 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && tempKeyInterval >= keyInterval)
+	{
+		tempKeyInterval = 0.f;
+		showTrais() = !showTrais();
 	}
 }
-void World::collisionCheck()
+void World::collisionCheck_Broad()
 {
-	
+	float tempRadii;
+	float dist;
+	for (int i = 0; i < Objects.size(); i++)
+	{
+		for (int j = 0; j < Objects.size(); j++)
+		{
+			tempRadii = Objects.at(i).radius() + Objects.at(j).radius();
+			dist = sqrt((abs(Objects.at(i).x() - Objects.at(j).x()) * abs(Objects.at(i).x() - Objects.at(j).x())) + (abs(Objects.at(i).y() - Objects.at(j).y()) * abs(Objects.at(i).y() - Objects.at(j).y())));
+			if (dist < tempRadii)
+			{
+
+			}
+			else
+			{
+				
+			}
+		}
+	}
+}
+
+bool &World::showTrais()
+{
+	return showtrails;
 }
 
 std::vector<Object> World::getObjects()
@@ -136,13 +178,13 @@ void World::RandReset(int ObjCount, bool clearObjs)
 	//Left side
 	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, height));
 
-	for (int i = 0; i < ObjCount; i++)
+	for (int i = 1; i <= ObjCount; i++)
 	{
 		DynamicObject temp(10.f, 10.f, 50, 1.f * scale, 1.f * scale);
-		temp.setXSpeed(i * 1);
-		temp.setYSpeed(-i / 2);
+		temp.setXSpeed((i / (float)ObjCount) * (width / 16));
 		temp.setbounciness(i / (ObjCount * 1.1f));
 		temp.showacceleration(getdrawAccelerationMagnitude());
+		temp.name() = "Object_" + std::to_string(i);
 		addObject(temp);
 	}
 }
