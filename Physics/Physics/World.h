@@ -27,7 +27,7 @@ private:
 	float frameTime;
 
 	//Amount of time between keypresses being registered
-	float keyInterval = .15f;
+	float keyInterval = .25f;
 	//Temp amount of time that has passed
 	float tempKeyInterval = 0.f;
 

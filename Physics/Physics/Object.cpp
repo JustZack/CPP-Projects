@@ -19,7 +19,7 @@ void Object::Init(float &X, float &Y, float &Mass, float &Width, float &Height)
 	setbounciness(f);
 	setcoefficientOfFriction(f);
 
-	settrailTimeInterval(f);
+	settrailTimeInterval(f - .25f);
 
 	m_shape.setSize(size());
 	m_shape.setPosition(pos());
@@ -138,7 +138,7 @@ void Object::Update_Acceleration()
 		{
 			showacceleration(false);
 		}
-		if (showacceleration())
+		//if (showacceleration())
 		{
 			accelerationShape().setSize(sf::Vector2f(1.f, accelerationMagnitude()));
 			accelerationShape().setRotation(accelerationAngle());

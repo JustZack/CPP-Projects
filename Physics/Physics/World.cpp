@@ -39,7 +39,6 @@ void World::Draw(sf::RenderWindow &window)
 	{
 		keyPressCheck();
 	}
-	//collisionCheck_Broad();
 	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
 	if (showTrais())
 	{
@@ -47,6 +46,7 @@ void World::Draw(sf::RenderWindow &window)
 		{
 			for (int j = 0; j < Objects.at(i).gettrail().size(); j++)
 			{
+				//TODO: only show the last 100 locations in the trail
 				trail.setPosition(Objects.at(i).gettrail().at(j));
 				window.draw(trail);
 			}
@@ -169,6 +169,7 @@ void World::RandReset(int ObjCount, bool clearObjs)
 		Objects.clear();
 	}
 	//TODO: Add method that creates these simple bounds around the screen.
+	/*
 	//Right side
 	addObject(StaticObject(0.f, 0.f, 10.f, 10.f, height));
 	//Top
@@ -177,6 +178,7 @@ void World::RandReset(int ObjCount, bool clearObjs)
 	addObject(StaticObject(10.f, height - 10.f, 10.f, width - 20.f, 10.f));
 	//Left side
 	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, height));
+	*/
 
 	for (int i = 1; i <= ObjCount; i++)
 	{
@@ -193,6 +195,7 @@ void World::PlaneReset(float distFromTop)
 	Objects.clear();
 
 	//TODO: Add method that creates these simple bounds around the screen.
+	/*
 	//Right side
 	addObject(StaticObject(0.f, 0.f, 10.f, 10.f, height));
 	//Top
@@ -201,6 +204,7 @@ void World::PlaneReset(float distFromTop)
 	addObject(StaticObject(10.f, height - 10.f, 10.f, width - 20.f, 10.f));
 	//Left side
 	addObject(StaticObject(width - 10.f, 0.f, 10.f, 10.f, height));
+	*/
 
 	for (int i = 0; i < width- 30.f; i += 1.f*scale)
 	{
