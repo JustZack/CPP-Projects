@@ -157,9 +157,9 @@ void Object::Update_PopulateTrail(float &frameTime)
 }
 void Object::WindowEdgeCollisionCheck()
 {
-	if (x() + width() >= 1800 || x() <= 0)
+	if (x() + width() >= 1920 || x() <= 0)
 	{
-		if (x() + width() >= 1800)
+		if (x() + width() >= 1920)
 		{
 			if (xSpeed() > 0)
 			{
@@ -176,11 +176,11 @@ void Object::WindowEdgeCollisionCheck()
 			}
 		}
 	}
-	if (y() + height() >= 900 || y() <= 0)
+	if (y() + height() >= 1080 || y() <= 0)
 	{
-		if (y() + height() >= 900)
+		if (y() + height() >= 1080)
 		{
-			y() = 900 - height();
+			y() = 1080 - height();
 			if (ySpeed() > 0)
 			{
 				ySpeed() *= -bounciness();

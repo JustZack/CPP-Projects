@@ -1,5 +1,10 @@
-﻿  GameOfLife.cpp
-c:\users\just_zack\desktop\c++\gameoflife\gameoflife\gameoflife.cpp(83): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-c:\users\just_zack\desktop\c++\gameoflife\gameoflife\gameoflife.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\C++\GameOfLife\x64\Debug\GameOfLife.exe
-  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\C++\GameOfLife\x64\Debug\GameOfLife.pdb (Partial PDB)
+﻿  main.cpp
+c:\users\just_zack\desktop\cpp-projects\gameoflife\gameoflife\main.cpp(9): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\just_zack\desktop\cpp-projects\gameoflife\gameoflife\main.cpp(25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameOfLife.cpp
+c:\users\just_zack\desktop\cpp-projects\gameoflife\gameoflife\gameoflife.cpp(83): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\just_zack\desktop\cpp-projects\gameoflife\gameoflife\gameoflife.cpp(84): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Cell.cpp
+  Generating Code...
+  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\CPP-Projects\GameOfLife\x64\Debug\GameOfLife.exe
+  GameOfLife.vcxproj -> C:\Users\Just_Zack\Desktop\CPP-Projects\GameOfLife\x64\Debug\GameOfLife.pdb (Partial PDB)

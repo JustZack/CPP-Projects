@@ -5,7 +5,7 @@
 int main()
 {
 	//Create the window, event handler, and limit its framerate
-	sf::RenderWindow window(sf::VideoMode(1800, 900), "Window");
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Window");
 	//window.setPosition(sf::Vector2i(-10,0));
 	sf::Event event;
 

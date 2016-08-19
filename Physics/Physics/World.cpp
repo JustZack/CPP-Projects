@@ -35,10 +35,6 @@ void World::Update()
 }
 void World::Draw(sf::RenderWindow &window)
 {
-	if (window.hasFocus())
-	{
-		keyPressCheck();
-	}
 	window.setTitle(std::to_string(getCurrentFrameRate()) + "   ||   " + std::to_string(getCurrentFrameTime()) + "   ||   " + std::to_string(getRunningtime()));
 	if (showTrais())
 	{
@@ -69,8 +65,15 @@ void World::Draw(sf::RenderWindow &window)
 			}
 		}
 	}
+
+	//Check if the window has focus before checkinf for any key presses. Otherwise i could trigger key pressess while typing in chrome!
+	if (window.hasFocus())
+	{
+		//Key presses are done AFTER the window has been drawn so that all of the objects are drawn onto the frame prior to a screenshot being taken.
+		keyPressCheck(window);
+	}
 }
-void World::keyPressCheck()
+void World::keyPressCheck(sf::RenderWindow &window)
 {
 	//Record how long is has been since the last keypress
 	tempKeyInterval += frameTime;
@@ -99,6 +102,19 @@ void World::keyPressCheck()
 	{
 		tempKeyInterval = 0.f;
 		showTrais() = !showTrais();
+	}
+	//Take a screenshot of the current frame
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && tempKeyInterval >= keyInterval)
+	{
+		tempKeyInterval = 0.f;
+		sf::Texture windowBackground;
+		windowBackground.create(window.getSize().x, window.getSize().y);
+		windowBackground.update(window);
+		sf::Image windowBackgroundImage;
+		windowBackgroundImage = windowBackground.copyToImage();
+		windowBackgroundImage.saveToFile("C:/Users/Just_Zack/Desktop/App_Background_Wallpaper_0.png");
+
+		
 	}
 }
 void World::collisionCheck_Broad()

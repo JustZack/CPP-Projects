@@ -42,7 +42,7 @@ public:
 
 	void Update();
 	void Draw(sf::RenderWindow &window);
-	void keyPressCheck();
+	void keyPressCheck(sf::RenderWindow &window);
 	void collisionCheck_Broad();
 
 	void showAccelerationMagnitude();
