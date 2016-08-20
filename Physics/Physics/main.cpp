@@ -23,10 +23,14 @@ int main()
 		}
 		window.clear();
 
+
+		//TODO: Decide if i want to keep .Update() and .Draw() seperate.
 		//Updates the position of all objects in the world.
 		PhysicsWorld.Update();
 		//Draws all objects in the world to the window.
 		PhysicsWorld.Draw(window);
+
+
 
 		window.display();
 	}

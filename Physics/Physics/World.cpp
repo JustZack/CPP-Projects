@@ -17,19 +17,26 @@ World::World(float Width, float Height, float Scale, double frameRateTimeInterva
 
 void World::Update()
 {
+	//Incremement the timer. This adds up the time, gets frame time, adds to total frames, and the frames per second.
 	Timer.Increment();
 	frameTime = Timer.getCurrentFrameTime();
+	//For loop that updates every single object in the world.
 	for (int i = 0; i < Objects.size(); i++)
 	{
+		//Send the object and its update method the current frametime and the world grravity.
 		Objects.at(i).Update(frameTime, gravity);
+		//Determine if the current Object is on screen or not.
 		if (Objects.at(i).x() > width || Objects.at(i).y() > height || Objects.at(i).x() + Objects.at(i).width() < 0.f || Objects.at(i).y() + Objects.at(i).height() < 0.f)
 		{
+			//Not on screen
 			Objects.at(i).isOnScreen(false);
 		}
 		else
 		{
+			//Otherwise it is on screen.
 			Objects.at(i).isOnScreen(true);
-			Objects.at(i).showacceleration(getdrawAccelerationMagnitude());
+			//Useless line of code, not sure why i even wrote it.
+			//Objects.at(i).showacceleration(getdrawAccelerationMagnitude());
 		}
 	}
 }
