@@ -1,0 +1,15 @@
+﻿  main.cpp
+  World.cpp
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\world.cpp(14): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\world.cpp(16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\world.cpp(19): warning C4244: '=': conversion from 'std::numeric_limits<int>::_Ty' to 'float', possible loss of data
+  Tile.cpp
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\tile.cpp(14): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\tile.cpp(77): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\tile.cpp(81): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\tile.cpp(85): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\just_zack\desktop\vs\tilesandbox\tilesandbox\tile.cpp(89): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  EventQueue.cpp
+  Generating Code...
+  TileSandbox.vcxproj -> C:\Users\Just_Zack\Desktop\VS\TileSandbox\x64\Debug\TileSandbox.exe
+  TileSandbox.vcxproj -> C:\Users\Just_Zack\Desktop\VS\TileSandbox\x64\Debug\TileSandbox.pdb (Partial PDB)
