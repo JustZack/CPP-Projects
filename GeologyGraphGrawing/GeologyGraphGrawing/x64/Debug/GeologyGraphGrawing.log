@@ -1,0 +1,9 @@
+﻿  main.cpp
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(12): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(14): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(16): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(16): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(41): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\just_zack\desktop\geologygraphgrawing\geologygraphgrawing\main.cpp(42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  GeologyGraphGrawing.vcxproj -> C:\Users\Just_Zack\Desktop\GeologyGraphGrawing\x64\Debug\GeologyGraphGrawing.exe
+  GeologyGraphGrawing.vcxproj -> C:\Users\Just_Zack\Desktop\GeologyGraphGrawing\x64\Debug\GeologyGraphGrawing.pdb (Partial PDB)
